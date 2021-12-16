@@ -14,3 +14,8 @@ foreach ($disk in $disks) {
     }
     #$response
 }
+
+
+
+
+log4shell.exe scan your-project-dir/
