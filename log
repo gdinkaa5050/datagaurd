@@ -3,3 +3,14 @@ gci 'C:\' -rec -force -include *.jar -ea 0 | foreach {select-string "JndiLookup.
 for /r %f in (*.jar) do (find /i /c "JndiLookup.class" "%f" 1>nul && echo "%f" >> "c:\lista.txt")
 
 jps | select-string -notmatch "jps$" | foreach {jcmd $_.Line.split()[0] VM.class_hierarchy} | select-string "log4j"
+
+
+
+foreach ($disk in $disks) {
+    set-location "$($disk.DriveLetter):\"
+    $response+= Get-ChildItem  -File "*.jar","*.war" -Recurse -Attributes !reparsepoint -ErrorAction SilentlyContinue | ForEach-Object {Select-String "JndiLookup.class" $_} | Select-Object -ExpandProperty Path
+    if($response){
+        $discoveryFlag = $true
+    }
+    #$response
+}
