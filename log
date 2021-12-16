@@ -1,1 +1,3 @@
 gci 'C:\' -rec -force -include *.jar -ea 0 | foreach {select-string "JndiLookup.class" $_} | select -exp Path
+
+for /r %f in (*.jar) do (find /i /c "JndiLookup.class" "%f" 1>nul && echo "%f" >> "c:\lista.txt")
